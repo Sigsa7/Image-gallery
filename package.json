@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "images": "node ./helper/uploadS3.js",
     "start": "npm run seed && node server/index.js",
     "react-dev": "webpack -d --watch",
     "seed": "node ./db/seed.js",
