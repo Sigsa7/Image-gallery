@@ -2,6 +2,7 @@
 node_modules
 package-lock.json
 
+
 #config
 config
 
@@ -11,3 +12,4 @@ coverage
 #misc
 .DS_Store
 public/bundle.js
+images/
