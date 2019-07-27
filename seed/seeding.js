@@ -1,7 +1,7 @@
 const fs = require('fs');
 const faker = require('faker');
 const csvwriter = require('csv-write-stream');
-const writer = csvwriter({headers: ["id", "imgUrl",'unrealated','innapropriate','dontLike','isDiner','imagecaption']});
+const writer = csvwriter({headers: ["id", "imgUrl",'unrealated','innapropriate','dontLike','isDiner','imagecaption','Date']});
 
 const sentences = [];
 
@@ -23,7 +23,7 @@ let random = (low, high) => {
 };
 // returns random entry to csv
 const randomEntries = (i) => {
-return `${i}, https://sigsa7.s3-us-west-1.amazonaws.com/${random(0,1000)}.jpg, ${random(0,14)}, ${random(0,12)}, ${random(0,13)}, ${randomBoolean()},${sentences[random(0,20)]}\n` 
+return `${i},https://sigsa7.s3-us-west-1.amazonaws.com/${random(0,1000)}.jpg,${random(0,14)},${random(0,12)},${random(0,13)},${randomBoolean()},${sentences[random(0,20)]},${faker.date.recent(4000)}\n` 
 }
 function writeOneMillionTimes(writer, data, encoding) {
   let i = 10000000;
