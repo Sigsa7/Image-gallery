@@ -1,7 +1,7 @@
 const fs = require('fs');
 const faker = require('faker');
 const csvwriter = require('csv-write-stream');
-const writer = csvwriter({headers: ["id", "imgUrl",'unrealated','nsfw','dontLike','isDiner','imagecaption','Date']});
+const writer = csvwriter({headers: ["id", "imgUrl",'unrealated','innapropriate','dontLike','isDiner','imagecaption','Date']});
 
 const sentences = [];
 
@@ -21,12 +21,15 @@ let random = (low, high) => {
   max = Math.floor(high);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+// uniqe id counter variable 
+let count = 0;
+
 // returns random entry to csv
 const randomEntries = (i) => {
-return `${i},https://sigsa7.s3-us-west-1.amazonaws.com/${random(0,1000)}.jpg,${random(0,14)},${random(0,12)},${random(0,13)},${randomBoolean()},${sentences[random(0,20)]},${faker.date.recent(4000)}\n` 
+return `${i},https://sigsa7.s3-us-west-1.amazonaws.com/${random(0,1000)}.jpg,${random(0,14)},${random(0,12)},${random(0,13)},${randomBoolean()},${sentences[random(0,19)]},${faker.date.recent(4000)}\n` 
 }
 function writeOneMillionTimes(writer, data, encoding) {
-  let i = 10000000;
+  let i = 1000;
   write();
   function write() {
     let ok = true;
@@ -36,12 +39,14 @@ function writeOneMillionTimes(writer, data, encoding) {
         // Last time!
         for(let e = 0; e < random(8,25); e += 1) {
           writer.write(data(i), encoding);
+          count += 1;
         }
       } else {
         // See if we should continue, or wait.
         // Don't pass the callback, because we're not done yet.
         for(let e = 0; e < random(8,25); e += 1) {
           ok = writer.write(data(i), encoding);
+          count += 1;
         }
       }
     } while (i > 0 && ok);
@@ -52,4 +57,4 @@ function writeOneMillionTimes(writer, data, encoding) {
     }
   }
 }
-writeOneMillionTimes(fs.createWriteStream('data.csv'), randomEntries, 'utf8');
+writeOneMillionTimes(fs.createWriteStream('tinyboi.csv'), randomEntries, 'utf8');
