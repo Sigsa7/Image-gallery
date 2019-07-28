@@ -8,7 +8,7 @@ function create() {
   for (let i = 0; i < 100; i++) {
     let count = 0;
 
-    while (count<15){
+    while (count<15) {
       let randomInt = Math.floor(Math.random() * Math.floor(239));
       arr.push({
         restaurant_id: `${i}`,

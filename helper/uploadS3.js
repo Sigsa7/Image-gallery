@@ -1,40 +1,47 @@
 const AWS = require('aws-sdk');
 const request = require('request');
-const config = require('../config/config.js');
+const config = require('../config/pexelConfig.js');
 const pexel = require('./pexel.js');
+const myCredentials = new AWS.CognitoIdentityCredentials({IdentityPoolId:'us-west-2:957725d9-2112-4e16-9c7a-0876448baae6'});
+const awsConfig = new AWS.Config();
 
-AWS.config.update({
-  accessKeyId: `${config.AWSAccessKeyId}`,
-  secretAccessKey: `${config.AWSSecretKey}`,
+
+awsConfig.update({
+  accessKeyId: `${config.accesskey}`,
+  secretAccessKey: `${config.secretKey}`,
+  credentials: myCredentials , 
+  region: 'Regions.US_WEST_2'
 });
-
-s3 = new AWS.S3({
+var s3 = new AWS.S3({
   apiVersion: '2006-03-01',
 });
 
-function put_from_url(key, id, callback) {
+let key = 0;
+function put_from_url(uri, callback) {
   request({
-    url: `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg`,
+    url: uri,
     encoding: null,
   }, (err, res, body) => {
     if (err) return callback(err, res);
-
     s3.putObject({
-      Bucket: 'reservly-photos',
+      Bucket: 'sigsa7',
       Key: `${key}.jpg`,
       ContentType: res.headers['content-type'],
       Body: body,
     }, callback);
   });
+  key++
 }
-
 // manually change the key value
-pexel.getImages((data) => {
-  let key = 160;
-  data.forEach((x) => {
-    put_from_url(key++, x, (err, info) => {
-      if (err) console.log(err);
-      console.log('successful in uploading');
+pexel.getImages( (data) => {
+  console.log(data)
+  for (let i = 0; i < 1; i++) {
+    console.log('pexel')
+    data.forEach( (pic) => {  
+      put_from_url( pic, (err, info) => {
+        if (err) console.log(err);
+        console.log('successful in uploading');
+      });
     });
-  });
+  }
 });

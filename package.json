@@ -5,6 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "img": "node helper/uploadS3.js",
+    "csv": "node seed/seeding.js",
     "start": "npm run seed && node server/index.js",
     "react-dev": "webpack -d --watch",
     "seed": "node ./db/seed.js",
@@ -50,7 +52,9 @@
   "dependencies": {
     "aws-sdk": "^2.488.0",
     "axios": "^0.19.0",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "lorem-ipsum": "^2.0.3",
     "mongoose": "^5.6.3",
     "react": "^16.8.6",
