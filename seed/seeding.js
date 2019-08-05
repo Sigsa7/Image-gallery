@@ -1,12 +1,6 @@
 const fs = require('fs');
 const faker = require('faker');
-const csvwriter = require('csv-write-stream');
-const writers = csvwriter({headers: ["id", "imgUrl",'unrealated','nsfw','dontLike','isDiner','imagecaption','Date']});
-const uuidv4 = require('uuid/v4');
 const sentences = [];
-
-
-
 // creates a list of random sentences for the description field
 for (let k = 0; k < 20; k += 1) {
   sentences.push(faker.lorem.sentence());
