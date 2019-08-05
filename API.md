@@ -8,4 +8,4 @@ URIs relative to https://localhost:3000
         POST      | /images                    | add new resturant data          |
         PUT       | /:restaurant_id/images     | update existing resturant data  |
         DELETE    | /:restaurant_id/images     | delete specific resturant       |
-        PATCH     | /:restaurant_id/images     | Make multiple changes to a ite  |
+        PATCH     | /:restaurant_id/images     | Make multiple changes to a item  |
