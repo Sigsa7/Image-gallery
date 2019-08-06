@@ -62,15 +62,6 @@
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
 =======
-    "identity-obj-proxy": "^3.0.0",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.19.1",
-    "otkit-icons": "^7.6.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
-    "express": "^4.17.1"
-  
 >>>>>>> 97d95ef6961269edad74461f925dac9f4aa66936
   },
   "dependencies": {
