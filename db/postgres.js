@@ -1,9 +1,10 @@
 const {Client} = require('pg');
 
 const client = new Client({
-  user: 'davidbrooks',
-  host: 'http://54.183.41.105:5432',
-  database: 'resturants',
+  user: 'power_user',
+  host: 'ec2-54-183-41-105.us-west-1.compute.amazonaws.com',
+  password: 'root',
+  
 });
 client.connect();
 

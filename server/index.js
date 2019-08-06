@@ -36,7 +36,7 @@ app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
 app.get('/:restaurant_id/images',(req, res) => {
   let param = req.params.restaurant_id;
   
-  db.query(`SELECT * from imagesuuid where id = ${param}`, (err, result) => {
+  db.query(`SELECT * from serialImages where restaurantId = ${param}`, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -52,8 +52,8 @@ app.post('/:restaurant_id/images', (req, res) => {
   let param = req.params.restaurant_id;
   // this should replaced after testing speed
   let data = [req.body];
-  let testdata = [344,'https://sigsa7.s3-us-west-1.amazonaws.com/351.jpg',5,6,7,false,'Et quidem dolores repellat name.','Tue Jun 04 2013 19:09:00 GMT-0700 (PDT)', '96bf3844-1e31-4cfd-8921-9ac10aa19d81']; 
-  db.query(`insert into  imagesuuid  (id,imageurl,unrelated,nsfw,dislikes,isdiner,caption,date,uniqueid) values  ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, testdata, (err, result) => {
+  let testdata = [344,'https://sigsa7.s3-us-west-1.amazonaws.com/351.jpg',5,6,7,false,'Et quidem dolores repellat name.','Tue Jun 04 2013 19:09:00 GMT-0700 (PDT)']; 
+  db.query(`insert into  serialImages (restaurantId,imageUrl,unrelated,nsfw,dislikes,isDiner,caption,date) values  ($1,$2,$3,$4,$5,$6,$7,$8)`, testdata, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -65,9 +65,7 @@ app.post('/:restaurant_id/images', (req, res) => {
 
 app.delete('/:restaurant_id/images', (req, res) => {
   let param = req.params.restaurant_id;
-  let uuid = req.params.uuid;
-
-  db.query("DELETE  from  imagesuuid  where uniqueid = '701f44c3-c1e5-4078-8477-4d82b9195415'",(err, result) => {
+  db.query(`DELETE  from  serialImages  where restaurantId = ${param}`, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -82,7 +80,7 @@ app.put('/:restaurant_id/images', (req, res) => {
 
   // add this to request after testing
   let data = req.body.column;
-  db.query("UPDATE imagesuuid set nsfw = 14 where uniqueid = '701f44c3-c1e5-4078-8477-4d82b9195415'",  (err, result) => {
+  db.query(`UPDATE serialImages set nsfw = 14 where restaurantId = ${param}`,  (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
@@ -99,7 +97,7 @@ app.patch('/:restaurant_id/images', (req, res) => {
   let data = [req.body.data];
 
   // function the returns a string where column = data
-  db.query(`UPDATE imagesuuid set ${req} where id = ${param} and uniqueid = '96bf3844-1e31-4cfd-8921-9ac10aa19d81'`,  (err, result) => {
+  db.query(`UPDATE serialImages set ${req} where restaurantId = ${param} `,  (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
