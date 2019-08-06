@@ -7,19 +7,15 @@ const path = require('path');
 const app = express();
 const port = 3001;
 //const redis = require('redis');
-
 //const REDIS_PORT = process.env.REDIS_PORT;
 //const client = redis.createClient(REDIS_PORT);
-
 //const client = redis.createClient(REDIS_PORT);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
 // query by unique datev
 //app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../public/')));
 app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
-
 // function cache(req, res, next) {
 //   const param = req.params.restaurant_id;
 //   client.get(param, (err, data) => {
@@ -35,13 +31,21 @@ app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
 // get all images for a restaurant,
 app.get('/:restaurant_id/images',(req, res) => {
   let param = req.params.restaurant_id;
+<<<<<<< HEAD
   console.log('hey') ;
+=======
+  console.log('eee')
+>>>>>>> 50c92744252e7aefda54aa77c4deffa31df6257f
   db.query(`SELECT * from serialImages where restaurantId = ${param}`, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
     } else {
+<<<<<<< HEAD
       console.log('here')
+=======
+      console.log('ee')
+>>>>>>> 50c92744252e7aefda54aa77c4deffa31df6257f
       //client.set(req.params.restaurant_id, JSON.stringify(result.rows));
       res.status(200).send(result.rows);
     }
