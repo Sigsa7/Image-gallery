@@ -35,12 +35,13 @@ app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
 // get all images for a restaurant,
 app.get('/:restaurant_id/images',(req, res) => {
   let param = req.params.restaurant_id;
-  
+  console.log('hey') ;
   db.query(`SELECT * from serialImages where restaurantId = ${param}`, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).end();
     } else {
+      console.log('here')
       //client.set(req.params.restaurant_id, JSON.stringify(result.rows));
       res.status(200).send(result.rows);
     }
