@@ -13,24 +13,23 @@ const client = redis.createClient(REDIS_PORT);
 
 //const client = redis.createClient(REDIS_PORT);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
 // query by unique datev
 //app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../public/')));
 app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
 
-
 function cache(req, res, next) {
   const param = req.params.restaurant_id;
-  client.get(param, function (err, data) {
-      if (err) throw err;
-
-      if (data != null) {
-      let daga =JSON.parse(data)
-          res.send(daga);
-      } else {
-          next();
-      }
+  client.get(param, (err, data) => {
+    if (err) throw err;
+    if (data != null) {
+      let daga =JSON.parse(data);
+      res.send(daga);
+    } else {
+      next();
+    }
   });
 }
 // get all images for a restaurant,
