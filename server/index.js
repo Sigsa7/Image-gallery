@@ -6,10 +6,10 @@ const db = require('../db/postgres.js');
 const path = require('path');
 const app = express();
 const port = 3001;
-const redis = require('redis');
+//const redis = require('redis');
 
-const REDIS_PORT = process.env.REDIS_PORT;
-const client = redis.createClient(REDIS_PORT);
+//const REDIS_PORT = process.env.REDIS_PORT;
+//const client = redis.createClient(REDIS_PORT);
 
 //const client = redis.createClient(REDIS_PORT);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
@@ -20,20 +20,20 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../public/')));
 app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
 
-function cache(req, res, next) {
-  const param = req.params.restaurant_id;
-  client.get(param, (err, data) => {
-    if (err) throw err;
-    if (data != null) {
-      let daga =JSON.parse(data);
-      res.send(daga);
-    } else {
-      next();
-    }
-  });
-}
+// function cache(req, res, next) {
+//   const param = req.params.restaurant_id;
+//   client.get(param, (err, data) => {
+//     if (err) throw err;
+//     if (data != null) {
+//       let daga =JSON.parse(data);
+//       res.send(daga);
+//     } else {
+//       next();
+//     }
+//   });
+// }
 // get all images for a restaurant,
-app.get('/:restaurant_id/images',cache,(req, res) => {
+app.get('/:restaurant_id/images',(req, res) => {
   let param = req.params.restaurant_id;
   
   db.query(`SELECT * from imagesuuid where id = ${param}`, (err, result) => {
@@ -41,7 +41,7 @@ app.get('/:restaurant_id/images',cache,(req, res) => {
       console.log(err);
       res.status(500).end();
     } else {
-      client.set(req.params.restaurant_id, JSON.stringify(result.rows));
+      //client.set(req.params.restaurant_id, JSON.stringify(result.rows));
       res.status(200).send(result.rows);
     }
   });
