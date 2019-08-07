@@ -36,7 +36,6 @@ app.get('/:restaurant_id/images', cache, (req, res) => {
       console.log(err);
       res.status(500).end();
     } else {
-      console.log('ee')
       client.set(req.params.restaurant_id, JSON.stringify(result.rows));
       res.status(200).send(result.rows);
     }
