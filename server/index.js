@@ -12,6 +12,10 @@ const client = redis.createClient(REDIS_PORT);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 // query by unique datev
 //app.use(morgan('dev'));
+app.get('/loaderio-a7d6ef1478197b5ae6bd822697d3c23a/', (req,res) => {
+res.send('loaderio-a7d6ef1478197b5ae6bd822697d3c23a')
+})
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../public/')));
 app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
@@ -28,6 +32,8 @@ function cache(req, res, next) {
     }
   });
 }
+
+
 // get all images for a restaurant,
 app.get('/:restaurant_id/images', cache, (req, res) => {
   let param = req.params.restaurant_id;
