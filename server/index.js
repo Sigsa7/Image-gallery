@@ -13,9 +13,11 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 // query by unique datev
 //app.use(morgan('dev'));
 
+
 app.get('loaderio-cfc92637e41de0e6026a571ab97d9f11/',(req,res)=>{
   res.send('loaderio-cfc92637e41de0e6026a571ab97d9f11')
 })
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../public/')));
 app.use('/:restaurant_id', express.static(path.join(__dirname, '/../public/')));
@@ -32,6 +34,8 @@ function cache(req, res, next) {
     }
   });
 }
+
+
 // get all images for a restaurant,
 app.get('/:restaurant_id/images', cache, (req, res) => {
   let param = req.params.restaurant_id;
