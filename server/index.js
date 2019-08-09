@@ -11,7 +11,7 @@ const client = redis.createClient(REDIS_PORT);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 // query by unique datev
 
-app.get('loaderio-cfc92637e41de0e6026a571ab97d9f11',(req,res)=>{
+app.get('/loaderio-cfc92637e41de0e6026a571ab97d9f11/',(req,res)=>{
   res.send('loaderio-cfc92637e41de0e6026a571ab97d9f11')
 })
 
